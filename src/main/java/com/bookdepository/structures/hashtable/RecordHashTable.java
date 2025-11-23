@@ -1,4 +1,4 @@
-package com.bookdepository.structures;
+package com.bookdepository.structures.hashtable;
 
 import com.bookdepository.model.Record;
 

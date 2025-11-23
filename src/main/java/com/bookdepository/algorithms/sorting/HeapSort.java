@@ -1,4 +1,4 @@
-package com.bookdepository.algorithms;
+package com.bookdepository.algorithms.sorting;
 
 import com.bookdepository.model.Record;
 

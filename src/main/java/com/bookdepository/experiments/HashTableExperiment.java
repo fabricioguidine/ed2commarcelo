@@ -1,17 +1,17 @@
-package com.bookdepository.part2;
+package com.bookdepository.experiments;
 
 import com.bookdepository.model.Record;
 import com.bookdepository.model.Author;
-import com.bookdepository.structures.AuthorHashTable;
-import com.bookdepository.structures.RecordHashTable;
-import com.bookdepository.algorithms.HeapSort;
+import com.bookdepository.structures.hashtable.AuthorHashTable;
+import com.bookdepository.structures.hashtable.RecordHashTable;
+import com.bookdepository.algorithms.sorting.HeapSort;
 import com.bookdepository.io.FileReader;
 import com.bookdepository.io.Part2OutputWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Part II: Most Frequent Authors Implementation
+ * Hash Table Performance Experiment
  * 
  * Implements a program that reads N random and distinct books and counts
  * how many times the same author appears within those N books using hash tables.
@@ -24,7 +24,7 @@ import java.util.Scanner;
  * @author Débora Duarte, Fabrício Guidine, Walkíria Garcia
  * @version 1.0
  */
-public class Part2 {
+public class HashTableExperiment {
     
     private static final int NUM_RECORDS = 100000;
     
@@ -68,12 +68,15 @@ public class Part2 {
      * 
      * @param recordHashTable Hash table that stores Record objects.
      * @param authorHashTable Hash table that stores Author objects.
+     * @param datasetFile Name of the dataset CSV file.
      */
-    private static void hashRecords(RecordHashTable recordHashTable, AuthorHashTable authorHashTable) {
+    private static void hashRecords(RecordHashTable recordHashTable, 
+                                    AuthorHashTable authorHashTable, 
+                                    String datasetFile) {
         Record[] records = new Record[NUM_RECORDS];
         
         System.out.println("Loading records from dataset...");
-        FileReader.loadRandomRecords(records, NUM_RECORDS, "data/dataset_simp_sem_descricao.csv");
+        FileReader.loadRandomRecords(records, NUM_RECORDS, datasetFile);
         System.out.println("Finished loading records.");
         
         System.out.println("Processing records and updating author frequencies...");
@@ -168,15 +171,18 @@ public class Part2 {
     }
     
     /**
-     * Creates objects and calls the necessary functions to determine the N most cited authors.
-     * At the end of execution, creates a file containing the N most cited authors.
+     * Runs the hash table experiment.
+     * 
+     * @param authorsFile Path to authors.csv file.
+     * @param datasetFile Path to dataset CSV file.
      */
-    private static void findMostFrequentAuthors() {
+    public static void run(String authorsFile, String datasetFile) {
+        // Read input
         int n = readInput();
         
         // Read authors
-        System.out.println("Reading authors from authors.csv...");
-        ArrayList<Author> authors = FileReader.readAuthors("data/authors.csv");
+        System.out.println("Reading authors from " + authorsFile + "...");
+        ArrayList<Author> authors = FileReader.readAuthors(authorsFile);
         System.out.println("Read " + authors.size() + " authors.");
         
         // Create hash tables
@@ -188,7 +194,7 @@ public class Part2 {
         RecordHashTable recordHashTable = new RecordHashTable(recordTableSize);
         
         // Process records and update frequencies
-        hashRecords(recordHashTable, authorHashTable);
+        hashRecords(recordHashTable, authorHashTable, datasetFile);
         
         // Determine most frequent authors
         Author[] mostFrequent = new Author[authorTableSize];
@@ -217,12 +223,12 @@ public class Part2 {
     }
     
     /**
-     * Main method of Part 2.
+     * Main method for hash table experiment.
      * 
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        findMostFrequentAuthors();
+        run("data/authors.csv", "data/dataset_simp_sem_descricao.csv");
     }
 }
 
