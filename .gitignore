@@ -39,6 +39,13 @@ data/
 *.swo
 *~
 
+# Cursor IDE
+.cursor/
+.cursorrules
+*.cursor-tokens
+.cursorignore
+.cursor/
+
 # OS
 .DS_Store
 Thumbs.db
