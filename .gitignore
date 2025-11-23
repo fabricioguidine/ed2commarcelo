@@ -53,9 +53,10 @@ Thumbs.db
 # Logs
 *.log
 
-# Output files
+# Output files (keep only README in output/)
 saida*.txt
-output/
+output/*
+!output/README.md
 
 # Old project structure (parte 1, 2, 3)
 parte 1/
