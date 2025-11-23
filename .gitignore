@@ -57,3 +57,17 @@ Thumbs.db
 saida*.txt
 output/
 
+# Tokens and secrets
+*.token
+*.key
+*.secret
+*_token.txt
+*_key.txt
+*.env
+.env.local
+secrets/
+tokens/
+github_token*
+git_token*
+gh_token*
+
