@@ -27,4 +27,3 @@ Where `N` is the number of test cases, and each value represents the number of r
 50000
 100000
 ```
-

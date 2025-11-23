@@ -8,7 +8,7 @@ This repository contains three main parts that analyze different aspects of data
 
 - **Part I**: Sorting algorithm analysis (QuickSort and HeapSort)
 - **Part II**: Most frequent authors implementation using hash tables
-- **Part III**: Search in balanced and self-adjusting structures (Red-Black Tree, B+ Trees)
+- **Part III**: Balanced tree structures analysis (Red-Black Tree, B+ Trees)
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ This repository contains three main parts that analyze different aspects of data
 
 ### 1. Dataset Setup
 
-The dataset is available on [Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset). You can download it using the provided Python script:
+The dataset is available on [Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset). Download it using the provided Python script:
 
 ```bash
 # Install Python dependencies
@@ -30,9 +30,9 @@ pip install -r scripts/requirements.txt
 python scripts/download_dataset.py
 ```
 
-**Note**: You need to set up your Kaggle API credentials. Place your `kaggle.json` file in `~/.kaggle/` directory or set the `KAGGLE_USERNAME` and `KAGGLE_KEY` environment variables.
+**Note**: Configure your Kaggle API credentials. Place `kaggle.json` in `~/.kaggle/` or set `KAGGLE_USERNAME` and `KAGGLE_KEY` environment variables.
 
-The script will download the dataset files to the `data/` directory:
+The script downloads the dataset to the `data/` directory:
 - `authors.csv` - Author information
 - `dataset_simp_sem_descricao.csv` - Book records
 
@@ -40,50 +40,72 @@ The script will download the dataset files to the `data/` directory:
 
 ```
 .
-├── data/                    # Dataset files (downloaded from Kaggle)
-├── scripts/                 # Python scripts for data management
-│   ├── download_dataset.py
-│   └── requirements.txt
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/bookdepository/
-│   │   │       ├── model/           # Data models (Record, Author)
-│   │   │       ├── algorithms/      # Algorithm implementations
-│   │   │       │   └── sorting/     # Sorting algorithms (QuickSort, HeapSort)
-│   │   │       ├── structures/      # Data structure implementations
-│   │   │       │   ├── hashtable/   # Hash tables
-│   │   │       │   └── tree/        # Tree structures (Red-Black, B+)
-│   │   │       ├── experiments/     # Benchmarking applications
-│   │   │       ├── io/              # File I/O utilities
-│   │   │       └── utils/           # Utility functions
-│   │   └── resources/               # Configuration and input files
-└── README.md
+├── data/                        # Dataset files (downloaded from Kaggle)
+├── docs/                        # Documentation
+│   ├── requirements.pdf        # Project requirements (PDF)
+│   └── latex/                  # LaTeX technical report
+├── input/                       # Input files for experiments
+│   └── entrada.txt             # Test sizes configuration
+├── output/                      # Output files from experiments
+│   ├── saida.txt               # Part I results
+│   ├── saidaPart2.txt          # Part II results
+│   ├── saidaInsercao.txt       # Part III insertion results
+│   └── saidaBusca.txt          # Part III search results
+├── scripts/                     # Utility scripts
+│   ├── download_dataset.py     # Kaggle dataset downloader
+│   └── requirements.txt        # Python dependencies
+├── src/                         # Source code
+│   └── main/
+│       └── java/
+│           └── com/bookdepository/
+│               ├── model/           # Domain entities (Record, Author)
+│               ├── algorithms/      # Algorithm implementations
+│               │   └── sorting/     # Sorting algorithms
+│               ├── structures/      # Data structure implementations
+│               │   ├── hashtable/   # Hash tables
+│               │   └── tree/        # Tree structures
+│               ├── experiments/     # Benchmarking applications
+│               ├── io/              # File I/O utilities
+│               └── utils/           # Utility functions
+└── tests/                       # Test results and analysis
 ```
 
-For detailed architecture information, see [ARCHITECTURE.md](ARCHITECTURE.md).
+### 3. Building and Running
 
-### 3. Building the Project
+#### Part I: Sorting Algorithms
 
-This project uses standard Java build tools. Each part can be compiled and run independently.
+```bash
+cd src/main/java
+javac -d ../../../build com/bookdepository/experiments/SortingExperiment.java
+java -cp ../../../build com.bookdepository.experiments.SortingExperiment
+```
 
-## Part I: Sorting Algorithm Analysis
+Output: `output/saida.txt`
 
-### Description
+#### Part II: Hash Tables (Most Frequent Authors)
 
-This part analyzes the performance of sorting algorithms on book records. It implements QuickSort and HeapSort algorithms and measures:
-- Number of key comparisons
-- Number of record copies/swaps
-- Total sorting time (machine time)
+```bash
+cd src/main/java
+javac -d ../../../build com/bookdepository/experiments/HashTableExperiment.java
+java -cp ../../../build com.bookdepository.experiments.HashTableExperiment
+```
 
-### Algorithms Implemented
+Output: `output/saidaPart2.txt`
 
-- **QuickSort**: Uses median-of-three pivot selection
-- **HeapSort**: Builds a max-heap and sorts by repeatedly extracting the maximum
+#### Part III: Tree Structures
 
-### Input Format
+```bash
+cd src/main/java
+javac -d ../../../build com/bookdepository/experiments/TreeExperiment.java
+java -cp ../../../build com.bookdepository.experiments.TreeExperiment
+```
 
-Create an `entrada.txt` file in the project root with the following format:
+Output: `output/saidaInsercao.txt` and `output/saidaBusca.txt`
+
+## Input Format
+
+Create `input/entrada.txt` with:
+
 ```
 N
 value1
@@ -92,7 +114,7 @@ value2
 valueN
 ```
 
-Where `N` is the number of test cases, and each value represents the number of records to sort.
+Where `N` is the number of test cases, and each value represents the number of records to process.
 
 **Example:**
 ```
@@ -104,100 +126,10 @@ Where `N` is the number of test cases, and each value represents the number of r
 100000
 ```
 
-### Running Sorting Experiment
+## Documentation
 
-```bash
-cd src/main/java
-javac -d ../../../build com/bookdepository/experiments/SortingExperiment.java
-java -cp ../../../build com.bookdepository.experiments.SortingExperiment
-```
-
-The output will be written to `saida.txt` in the project root.
-
-## Part II: Most Frequent Authors
-
-### Description
-
-Implements a program that reads N random and distinct books and counts how many times the same author appears within those N books using hash tables. The program prints the most frequent authors.
-
-### Data Structures Used
-
-- **Hash Table for Records**: Stores book records using open addressing with double hashing
-- **Hash Table for Authors**: Stores author information and their frequencies
-
-### Running Hash Table Experiment
-
-```bash
-cd src/main/java
-javac -d ../../../build com/bookdepository/experiments/HashTableExperiment.java
-java -cp ../../../build com.bookdepository.experiments.HashTableExperiment
-```
-
-The program will prompt for the number `N` of top authors to display. Output will be written to `saidaPart2.txt`.
-
-## Part III: Balanced and Self-Adjusting Structures
-
-### Description
-
-Evaluates the performance of balanced tree structures when inserting books using the book ID as the key. Also analyzes the performance of these structures when searching for books.
-
-### Structures Analyzed
-
-- **Red-Black Tree**: Self-balancing binary search tree
-- **B+ Tree (d=2)**: B+ tree with minimum degree 2
-- **B+ Tree (d=20)**: B+ tree with minimum degree 20
-
-### Performance Metrics
-
-For each structure and each value of N from the input file:
-- Insertion statistics (comparisons, swaps, time)
-- Search statistics (comparisons, swaps, time)
-
-Output files:
-- `saidaInsercao.txt`: Insertion performance statistics
-- `saidaBusca.txt`: Search performance statistics
-
-### Running Part III
-
-```bash
-cd src/main/java/com/bookdepository/part3
-javac -d ../../../../../../build *.java
-java com.bookdepository.part3.Part3
-```
-
-## Project Details
-
-### Dataset Schema
-
-Each book record contains:
-- `authors` [list]: List of author IDs
-- `bestsellers_rank` [int]: Bestseller ranking
-- `categories` [list]: Book categories
-- `edition` [str]: Edition information
-- `id` [int]: Unique book identifier
-- `isbn10` [str]: ISBN-10
-- `isbn13` [str]: ISBN-13
-- `rating_avg` [float]: Average rating (0-5)
-- `rating_count` [int]: Number of ratings
-- `title` [str]: Book title
-
-### Architecture
-
-The project follows a modular architecture with clear separation of concerns:
-
-- **Model Layer**: Data models (`Record`, `Author`)
-- **Algorithm Layer**: Sorting and search algorithms
-- **Structure Layer**: Data structures (hash tables, trees)
-- **IO Layer**: File reading and writing utilities
-- **Application Layer**: Main programs for each part
-
-## Contributing
-
-This project was created as part of a Data Structures course (DCC012) at the Computer Science Department of UFJF.
-
-## License
-
-This project is for educational purposes.
+- **Requirements**: See `docs/requirements.pdf`
+- **Technical Report**: LaTeX source in `docs/latex/`
 
 ## Authors
 
@@ -205,12 +137,6 @@ This project is for educational purposes.
 - Fabrício Guidine
 - Walkíria Garcia
 
-## Documentation
+## License
 
-The original project specification (in Portuguese) can be found in:
-- [`Trabalho 1 e 2 (2020.1) - ERE.pdf`](Trabalho%201%20e%202%20(2020.1)%20-%20ERE.pdf) - Project specification document
-
-## Acknowledgments
-
-- Dataset provided by [Book Depository on Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset)
-- Department of Computer Science, UFJF
+This project is part of the coursework for DCC012 - Data Structures II at Universidade Federal de Juiz de Fora.

@@ -12,7 +12,7 @@ target/
 .settings/
 .classpath
 .project
-nbproject/private/
+nbproject/
 
 # Python
 __pycache__/
@@ -30,6 +30,8 @@ data/
 *.csv
 *.txt
 !scripts/requirements.txt
+!input/entrada.txt
+!input/README.md
 
 # IDE
 .idea/
@@ -41,10 +43,6 @@ data/
 
 # Cursor IDE
 .cursor/
-.cursorrules
-*.cursor-tokens
-.cursorignore
-.cursor/
 
 # OS
 .DS_Store
@@ -54,35 +52,18 @@ Thumbs.db
 *.log
 
 # Output files (keep only README in output/)
-saida*.txt
 output/*
 !output/README.md
 
-# Old project structure (parte 1, 2, 3)
-parte 1/
-parte 2/
-parte 3/
+# Old project structure
+parte*/
 
-# Build artifacts from old structure
+# Build artifacts
 *.jar
 *.class
 javadoc/
-nbproject/
 build.xml
 manifest.mf
-
-# Documentation files (keep only README.md and docs/)
-ARCHITECTURE.md
-PROGRESS.md
-COMPLETION_SUMMARY.md
-PUSH_INSTRUCTIONS.md
-README_PUSH.md
-
-# Push scripts (development only)
-push*.ps1
-push*.sh
-*.ps1
-*.sh
 
 # Tokens and secrets
 *.token
@@ -97,4 +78,3 @@ tokens/
 github_token*
 git_token*
 gh_token*
-
