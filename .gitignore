@@ -1,17 +1,29 @@
 # Java
 *.class
-*.jar
-*.war
-*.ear
-*.nar
 build/
 out/
-target/
 .gradle/
 .settings/
 .classpath
 .project
 nbproject/
+
+# Maven
+target/
+!target/bookdepository-ds-analysis.jar
+!target/bookdepository-ds-analysis-jar-with-dependencies.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Keep JAR in dist/ for manual builds
+!dist/bookdepository-ds-analysis.jar
 
 # Python
 __pycache__/

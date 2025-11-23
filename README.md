@@ -40,6 +40,9 @@ Before you begin, ensure you have the following installed:
 
 - **Java Development Kit (JDK)** 8 or higher
   - Verify installation: `java -version`
+- **Maven** 3.6 or higher (for dependency management and building)
+  - Verify installation: `mvn -version`
+  - Download from: [Maven Download](https://maven.apache.org/download.cgi)
 - **Python** 3.7 or higher
   - Verify installation: `python --version`
 - **Kaggle API** credentials for dataset access
@@ -153,42 +156,64 @@ The script will download the dataset files to the `data/` directory:
 
 ### Building the Project
 
-This project provides a JAR file generation system located in the `jar-build/` directory.
+This project uses **Maven** for dependency management and build automation.
 
-#### Building the JAR File
+#### Prerequisites
 
-**Linux/Mac/Git Bash:**
+- **Java Development Kit (JDK)** 8 or higher
+- **Maven** 3.6 or higher
+  - Verify installation: `mvn -version`
+  - Download from: https://maven.apache.org/download.cgi
+
+#### Building with Maven
+
+**Build and run tests:**
 ```bash
-cd jar-build
-make
-# or
-chmod +x build.sh
-./build.sh
+mvn clean package
 ```
 
-**Windows:**
+**Build without tests:**
 ```bash
-cd jar-build
-build.bat
+mvn clean package -DskipTests
 ```
 
-**Output:** The JAR file will be created at `dist/bookdepository-ds-analysis.jar`
+**Run tests only:**
+```bash
+mvn test
+```
 
-For detailed build instructions, see `jar-build/README.md`.
+**Output:** 
+- Main JAR: `target/bookdepository-ds-analysis.jar`
+- JAR with dependencies: `target/bookdepository-ds-analysis-jar-with-dependencies.jar`
+
+For manual build instructions (without Maven), see `jar-build/README.md`.
 
 #### Running Experiments from JAR
 
-After building, run experiments using the JAR file:
+After building with Maven, run experiments:
 
+**Using JAR with dependencies (recommended):**
 ```bash
 # Part I: Sorting Algorithms
-java -cp dist/bookdepository-ds-analysis.jar com.bookdepository.experiments.SortingExperiment
+java -jar target/bookdepository-ds-analysis-jar-with-dependencies.jar
 
 # Part II: Hash Tables
-java -cp dist/bookdepository-ds-analysis.jar com.bookdepository.experiments.HashTableExperiment
+java -cp target/bookdepository-ds-analysis-jar-with-dependencies.jar com.bookdepository.experiments.HashTableExperiment
 
 # Part III: Tree Structures
-java -cp dist/bookdepository-ds-analysis.jar com.bookdepository.experiments.TreeExperiment
+java -cp target/bookdepository-ds-analysis-jar-with-dependencies.jar com.bookdepository.experiments.TreeExperiment
+```
+
+**Using main JAR:**
+```bash
+# Part I: Sorting Algorithms
+java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.SortingExperiment
+
+# Part II: Hash Tables
+java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.HashTableExperiment
+
+# Part III: Tree Structures
+java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.TreeExperiment
 ```
 
 ## 🧪 Testing
@@ -197,18 +222,31 @@ This project includes a comprehensive JUnit test suite to validate all implement
 
 ### Running Tests
 
-**Linux/Mac/Git Bash:**
+**Using Maven (recommended):**
 ```bash
+# Run all tests
+mvn test
+
+# Run specific test class
+mvn test -Dtest=RecordTest
+
+# Run tests with verbose output
+mvn test -X
+```
+
+**Using test scripts (alternative):**
+```bash
+# Linux/Mac/Git Bash
 cd tests/scripts
 chmod +x test.sh
 ./test.sh
-```
 
-**Windows:**
-```bash
+# Windows
 cd tests\scripts
 test.bat
 ```
+
+**Note:** Maven automatically downloads JUnit dependencies. The manual `lib/` directory approach is no longer required when using Maven.
 
 ### Test Coverage
 
@@ -221,28 +259,14 @@ The test suite covers:
 
 ### Test Requirements
 
-Before running tests, download JUnit dependencies:
+**With Maven:** Dependencies are automatically managed. Simply run `mvn test`.
 
-```bash
-# Download JUnit JAR files to lib/ directory
-# See lib/README.md for detailed instructions
-```
+**Manual Setup (without Maven):**
+- Download JUnit JAR files to `lib/` directory
+- See `lib/README.md` for detailed instructions
+- Use test scripts in `tests/scripts/`
 
-**Quick Download (Linux/Mac):**
-```bash
-cd lib
-curl -O https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar
-curl -O https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
-```
-
-**Quick Download (Windows PowerShell):**
-```powershell
-cd lib
-Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar" -OutFile "junit-4.13.2.jar"
-Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" -OutFile "hamcrest-core-1.3.jar"
-```
-
-All test classes are located in `src/test/java/com/bookdepository/`. See `tests/README.md` for more information about the test structure and results.
+All test classes are located in `src/test/java/com/bookdepository/`. See `tests/scripts/README.md` for more information.
 
 ## 💻 Usage
 
