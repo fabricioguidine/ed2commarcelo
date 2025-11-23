@@ -25,15 +25,19 @@
 \usepackage{pgfplotstable}
 \usepackage{subcaption}
 \usepackage{float}
-\usepackage[labelsep=period]{caption}
+\usepackage{caption}
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{array}
 \usepackage{tabularx}
-\usepackage{caption}
 
-% Table caption configuration - centered and above table
-\captionsetup[table]{justification=centering, position=above, singlelinecheck=false}
+% Table caption configuration - centered and aligned with table width
+\captionsetup[table]{
+    justification=centering,
+    singlelinecheck=false,
+    format=hang,
+    labelsep=period
+}
 
 % Hyperref configuration
 \hypersetup{
@@ -366,8 +370,6 @@ The QuickSort results show:
 % Fixed table for QuickSort results
 \begin{table}[H]
 \centering
-\caption{QuickSort results for different input sizes}
-\label{tab:quicksort-results}
 \begin{tabular}{c c c c}
     \toprule
     \textbf{Size (n)} & \textbf{Comparisons} & \textbf{Swaps} & \textbf{Time (ms)} \\
@@ -379,6 +381,8 @@ The QuickSort results show:
     100,000 & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{QuickSort results for different input sizes}
+\label{tab:quicksort-results}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -395,8 +399,6 @@ The HeapSort results show:
 % Fixed table for HeapSort results
 \begin{table}[H]
 \centering
-\caption{HeapSort results for different input sizes}
-\label{tab:heapsort-results}
 \begin{tabular}{c c c c}
     \toprule
     \textbf{Size (n)} & \textbf{Comparisons} & \textbf{Swaps} & \textbf{Time (ms)} \\
@@ -408,6 +410,8 @@ The HeapSort results show:
     100,000 & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{HeapSort results for different input sizes}
+\label{tab:heapsort-results}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -417,8 +421,6 @@ To compare the sorting algorithms, a comparative analysis was performed consider
 
 \begin{table}[H]
 \centering
-\caption{Comparative analysis between QuickSort and HeapSort}
-\label{tab:sorting-comparison}
 \begin{tabular}{l c c c}
     \toprule
     \textbf{Metric} & \textbf{QuickSort} & \textbf{HeapSort} & \textbf{Observations} \\
@@ -430,6 +432,8 @@ To compare the sorting algorithms, a comparative analysis was performed consider
     Memory usage & $O(\log n)$ & $O(1)$ & QuickSort uses recursive stack \\
     \bottomrule
 \end{tabular}
+\caption{Comparative analysis between QuickSort and HeapSort}
+\label{tab:sorting-comparison}
 \fonte{Theoretical and empirical algorithm analysis.}
 \end{table}
 
@@ -465,6 +469,8 @@ The results from the hash table experiments are available in the \texttt{output/
     100,000 & -- & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{Hash Table performance for different sizes}
+\label{tab:hashtable-performance}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -475,8 +481,6 @@ The results from identifying the most frequent authors are in \texttt{output/sai
 % Fixed table for most frequent authors
 \begin{table}[H]
 \centering
-\caption{Top 10 most frequent authors in the dataset}
-\label{tab:most-frequent-authors}
 \begin{tabular}{c l c}
     \toprule
     \textbf{Rank} & \textbf{Author Name} & \textbf{Number of Works} \\
@@ -493,6 +497,8 @@ The results from identifying the most frequent authors are in \texttt{output/sai
     10 & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{Top 10 most frequent authors in the dataset}
+\label{tab:most-frequent-authors}
 \fonte{Analysis of Book Depository dataset using hash table.}
 \end{table}
 
@@ -505,8 +511,6 @@ The results from the Red-Black tree experiments are in \texttt{output/saidaInser
 % Fixed table for Red-Black Tree results
 \begin{table}[H]
 \centering
-\caption{Red-Black Tree performance}
-\label{tab:redblack-results}
 \begin{tabular}{c c c c c}
     \toprule
     \textbf{Operations} & \textbf{Insertion Time (ms)} & \textbf{Search Time (ms)} & \textbf{Average Height} & \textbf{Rotations} \\
@@ -518,6 +522,8 @@ The results from the Red-Black tree experiments are in \texttt{output/saidaInser
     100,000 & -- & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{Red-Black Tree performance}
+\label{tab:redblack-results}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -528,8 +534,6 @@ The results from the B+ tree experiments with degree 2 are in \texttt{output/sai
 % Fixed table for B+ Tree (d=2) results
 \begin{table}[H]
 \centering
-\caption{B+ Tree (d=2) performance}
-\label{tab:bplus-d2-results}
 \begin{tabular}{c c c c c}
     \toprule
     \textbf{Operations} & \textbf{Insertion Time (ms)} & \textbf{Search Time (ms)} & \textbf{Average Level} & \textbf{Leaf Nodes} \\
@@ -541,6 +545,8 @@ The results from the B+ tree experiments with degree 2 are in \texttt{output/sai
     100,000 & -- & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{B+ Tree (d=2) performance}
+\label{tab:bplus-d2-results}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -551,8 +557,6 @@ The results from the B+ tree experiments with degree 20 are in \texttt{output/sa
 % Fixed table for B+ Tree (d=20) results
 \begin{table}[H]
 \centering
-\caption{B+ Tree (d=20) performance}
-\label{tab:bplus-d20-results}
 \begin{tabular}{c c c c c}
     \toprule
     \textbf{Operations} & \textbf{Insertion Time (ms)} & \textbf{Search Time (ms)} & \textbf{Average Level} & \textbf{Leaf Nodes} \\
@@ -564,6 +568,8 @@ The results from the B+ tree experiments with degree 20 are in \texttt{output/sa
     100,000 & -- & -- & -- & -- \\
     \bottomrule
 \end{tabular}
+\caption{B+ Tree (d=20) performance}
+\label{tab:bplus-d20-results}
 \fonte{Results from conducted experiments.}
 \end{table}
 
@@ -574,8 +580,6 @@ A complete comparative analysis of the results is available in the output files.
 % Fixed table for tree comparison
 \begin{table}[H]
 \centering
-\caption{Comparative analysis: Red-Black Tree vs B+ Trees}
-\label{tab:trees-comparison}
 \begin{tabular}{l c c c}
     \toprule
     \textbf{Metric} & \textbf{Red-Black} & \textbf{B+ (d=2)} & \textbf{B+ (d=20)} \\
@@ -587,6 +591,8 @@ A complete comparative analysis of the results is available in the output files.
     Optimization & Main memory & Disk & Disk (higher degree) \\
     \bottomrule
 \end{tabular}
+\caption{Comparative analysis: Red-Black Tree vs B+ Trees}
+\label{tab:trees-comparison}
 \fonte{Theoretical and empirical structure analysis.}
 \end{table}
 
