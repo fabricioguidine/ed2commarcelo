@@ -139,7 +139,7 @@ The script will download the dataset files to the `data/` directory:
 │   └── test/java/              # Test source code (JUnit tests)
 ├── .gitignore
 ├── pom.xml                      # Maven project configuration
-├── bookdepository-ds-analysis.jar  # Pre-built JAR file (downloadable)
+├── bookdepository-ds-analysis.jar  # Generated JAR file (see JAR generation section)
 ├── README.md
 └── LICENSE
 ```
@@ -172,51 +172,26 @@ mvn clean package -DskipTests
 mvn test
 ```
 
-**Output:** 
-- Main JAR: `target/bookdepository-ds-analysis.jar`
-- JAR with dependencies: `target/bookdepository-ds-analysis-jar-with-dependencies.jar`
+**Generate JAR file:**
 
-To build the JAR manually via terminal:
+After building with Maven, create the executable JAR in the project root:
 
+**Linux/Mac/Git Bash:**
 ```bash
-# Build JAR with dependencies using Maven
-mvn clean package
-
-# Copy JAR to project root
-# Linux/Mac:
-cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
-
-# Windows PowerShell:
-Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+mvn clean package && cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-#### Running Experiments from JAR
-
-After building with Maven, run experiments:
-
-**Using JAR with dependencies (recommended):**
-```bash
-# Part I: Sorting Algorithms
-java -jar target/bookdepository-ds-analysis-jar-with-dependencies.jar
-
-# Part II: Hash Tables
-java -cp target/bookdepository-ds-analysis-jar-with-dependencies.jar com.bookdepository.experiments.HashTableExperiment
-
-# Part III: Tree Structures
-java -cp target/bookdepository-ds-analysis-jar-with-dependencies.jar com.bookdepository.experiments.TreeExperiment
+**Windows PowerShell:**
+```powershell
+mvn clean package; Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-**Using main JAR:**
-```bash
-# Part I: Sorting Algorithms
-java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.SortingExperiment
-
-# Part II: Hash Tables
-java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.HashTableExperiment
-
-# Part III: Tree Structures
-java -cp target/bookdepository-ds-analysis.jar com.bookdepository.experiments.TreeExperiment
+**Windows CMD:**
+```cmd
+mvn clean package && copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
+
+The JAR file `bookdepository-ds-analysis.jar` will be created in the project root.
 
 ## 🧪 Testing
 
@@ -484,85 +459,56 @@ Each book record contains the following fields:
 
 **Note:** This project is for academic purposes as part of the Data Structures II course at UFJF.
 
-## 📦 JAR File
+## 📦 Generating and Running the JAR File
 
-A pre-built JAR file is available in the project root: **`bookdepository-ds-analysis.jar`**
-
-This JAR file is included in the repository, so when you clone the project, you can use it immediately without building.
-
-### Quick Start with JAR
+### Generate JAR File via Terminal
 
 **Prerequisites:**
-- Java JDK 8 or higher installed
-- Verify with: `java -version`
+- Java JDK 8 or higher
+- Maven 3.6 or higher
 
-**Download/Clone:**
+**Generate JAR:**
+
+**Linux/Mac/Git Bash:**
 ```bash
-git clone <repository-url>
-cd performance-analysis-4-ds-and-algo
+mvn clean package && cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-**Run Experiments:**
-```bash
-# Part I: Sorting Algorithms
-java -jar bookdepository-ds-analysis.jar
-
-# Part II: Hash Tables (if implemented)
-java -cp bookdepository-ds-analysis.jar com.bookdepository.experiments.HashTableExperiment
-
-# Part III: Tree Structures (if implemented)
-java -cp bookdepository-ds-analysis.jar com.bookdepository.experiments.TreeExperiment
+**Windows PowerShell:**
+```powershell
+mvn clean package; Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-### Rebuilding the JAR
-
-If you need to rebuild the JAR file:
-
-**Using Maven (recommended):**
-```bash
-mvn clean package
-```
-The JAR will be in `target/bookdepository-ds-analysis-jar-with-dependencies.jar`. Copy it to the root:
-```bash
-# Linux/Mac
-cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
-
-# Windows
-copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+**Windows CMD:**
+```cmd
+mvn clean package && copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-**Build JAR via terminal:**
-
-```bash
-# 1. Build with Maven
-mvn clean package
-
-# 2. Copy JAR to project root
-# Linux/Mac:
-cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
-
-# Windows PowerShell:
-Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
-
-# Windows CMD:
-copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
-```
-
-### JAR Contents
-
-The JAR includes:
-- All compiled classes from `src/main/java`
-- All dependencies (when built with `-jar-with-dependencies`)
-- Main class: `com.bookdepository.experiments.SortingExperiment`
+This creates `bookdepository-ds-analysis.jar` in the project root.
 
 ### Running Experiments
 
-The JAR expects:
-- Input file: `input/entrada.txt` with test sizes
-- Dataset files in `data/` directory (downloaded via `scripts/download_dataset.py`)
+**Part I: Sorting Algorithms**
+```bash
+java -jar bookdepository-ds-analysis.jar
+```
 
-Output files will be generated in the `output/` directory:
+**Part II: Hash Tables**
+```bash
+java -cp bookdepository-ds-analysis.jar com.bookdepository.experiments.HashTableExperiment
+```
+
+**Part III: Tree Structures**
+```bash
+java -cp bookdepository-ds-analysis.jar com.bookdepository.experiments.TreeExperiment
+```
+
+**Requirements:**
+- Input file: `input/entrada.txt` with test sizes
+- Dataset files in `data/` directory (download via `scripts/download_dataset.py`)
+
+**Output files:**
 - `output/saida.txt` - Sorting algorithm results
-- `output/saidaPart2.txt` - Hash table results (if implemented)
-- `output/saidaInsercao.txt` - Tree insertion results (if implemented)
-- `output/saidaBusca.txt` - Tree search results (if implemented)
+- `output/saidaPart2.txt` - Hash table results
+- `output/saidaInsercao.txt` - Tree insertion results
+- `output/saidaBusca.txt` - Tree search results
