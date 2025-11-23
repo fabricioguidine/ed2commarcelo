@@ -103,10 +103,6 @@ The script will download the dataset files to the `data/` directory:
 │   ├── saidaPart2.txt          # Part II results (hash tables)
 │   ├── saidaInsercao.txt       # Part III insertion results
 │   └── saidaBusca.txt          # Part III search results
-├── jar-build/                   # JAR build scripts and tools
-│   ├── Makefile                # Make-based build
-│   ├── build.sh                # Bash build script
-│   └── build.bat               # Windows build script
 ├── scripts/                     # Utility scripts
 │   ├── download_dataset.py     # Kaggle dataset downloader
 │   └── requirements.txt        # Python dependencies
@@ -180,9 +176,19 @@ mvn test
 - Main JAR: `target/bookdepository-ds-analysis.jar`
 - JAR with dependencies: `target/bookdepository-ds-analysis-jar-with-dependencies.jar`
 
-To build the JAR manually using the jar-build scripts:
-- **Linux/Mac/Git Bash**: `cd jar-build && ./build.sh`
-- **Windows**: `cd jar-build && build.bat`
+To build the JAR manually via terminal:
+
+```bash
+# Build JAR with dependencies using Maven
+mvn clean package
+
+# Copy JAR to project root
+# Linux/Mac:
+cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+
+# Windows PowerShell:
+Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+```
 
 #### Running Experiments from JAR
 
@@ -525,11 +531,22 @@ cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds
 copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
 ```
 
-**Using jar-build scripts:**
-- **Linux/Mac/Git Bash**: `cd jar-build && ./build.sh`
-- **Windows**: `cd jar-build && build.bat`
+**Build JAR via terminal:**
 
-The script will automatically copy the JAR to the project root for easy access.
+```bash
+# 1. Build with Maven
+mvn clean package
+
+# 2. Copy JAR to project root
+# Linux/Mac:
+cp target/bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+
+# Windows PowerShell:
+Copy-Item target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+
+# Windows CMD:
+copy target\bookdepository-ds-analysis-jar-with-dependencies.jar bookdepository-ds-analysis.jar
+```
 
 ### JAR Contents
 
