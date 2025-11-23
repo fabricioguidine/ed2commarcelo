@@ -1,58 +1,207 @@
-# ed2;rcelo
+# Book Depository Data Structures Analysis
 
-Repositório do trabalho de Estrutura de Dados (DCC012) do Depto de Ciência da Computação da UFJF referente ao semestre 2020.1.
+A comprehensive data structures and algorithms analysis project using the Book Depository dataset from Kaggle. This project implements and compares various sorting algorithms, hash tables, and balanced tree structures.
 
-## Book Depository Dataset :closed_book:
+## Overview
 
-O conjunto de dados (registros) em *.csv* está disponível em [Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset). É necessário fazer o *download* do arquivo para executar o programa e deixá-lo na pasta do projeto para poder rodá-lo. Você pode encontrá-lo em [Google Drive](https://drive.google.com/file/d/1Iy7PVAZdvuUFuK3FiepMJVy2TkX_qY2H/view?usp=sharing).
+This repository contains three main parts that analyze different aspects of data structures:
 
-**Observação**: Para rodar o programa, além do arquivo *authors.csv* do *DataSet* estar no diretório, o arquivo de entrada especificado na descrição do trabalho também deve estar, *entrada.txt*. Para rodar via terminal no Linux basta baixar o Trabalho 01, 02 ou 03 com a extenção *.jar do repositório de cada parte e executar o comando:
+- **Part I**: Sorting algorithm analysis (QuickSort and HeapSort)
+- **Part II**: Most frequent authors implementation using hash tables
+- **Part III**: Search in balanced and self-adjusting structures (Red-Black Tree, B+ Trees)
 
-```java -jar Trabalho01.jar```, ```java -jar Trabalho02.jar``` ou ```java -jar Trabalho03.jar```.
+## Prerequisites
 
-### Parte I
+- Java Development Kit (JDK) 8 or higher
+- Python 3.7+ (for dataset download)
+- [Kaggle API](https://www.kaggle.com/docs/api) credentials (for dataset access)
 
-#### Análise dos Algoritmos de Ordenação :chart_with_upwards_trend:
-- [x] Armazenar os registros em um vetor de tamanho N (*authors [list], bestsellers-rank [int], categories [list], edition [str], id [int], isbn10 [str], isbn13 [str], rating-avg [int], rating-count [int], title [str]*); 
-- [x] Contabilizar o número de comparações de chaves;
-- [x] Contabilizar o número de cópias de registros;
-- [x] Contabilizar o tempo total gasto na ordenação (tempo de máquina, não de relógio).
+## Getting Started
 
-##### Escolha dos algoritmos :bookmark_tabs:
+### 1. Dataset Setup
 
-* QuickSort
-* HeapSort
+The dataset is available on [Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset). You can download it using the provided Python script:
 
-**Observação:** O programa deve receber um arquivo de entrada (*entrada.txt*) com o formato: *N* é número de valores que se seguem, um por linha. Exemplo: *N = 3*, então cada linha terá um valor especificado de 1000 na primeira linha, 5000 na segunda e 10000 na terceira.
+```bash
+# Install Python dependencies
+pip install -r scripts/requirements.txt
 
-Para cada valor de *N* lido do arquivo *entrada.txt*:
-- [x] Gera cada um dos conjuntos dos elementos, ordena, contabiliza estatísticas de desempenho;
-- [x] Armazena estatísticas de desempenho em arquivo de saída (*saida.txt*).
+# Download the dataset (requires Kaggle API credentials)
+python scripts/download_dataset.py
+```
 
-### Parte II
-#### Implementação dos Autores mais Frequentes :bar_chart:
+**Note**: You need to set up your Kaggle API credentials. Place your `kaggle.json` file in `~/.kaggle/` directory or set the `KAGGLE_USERNAME` and `KAGGLE_KEY` environment variables.
 
-Implementar um programa que leia N livros aleatórios e diferentes e conte quantas vezes um mesmo autor se repete dentro desses N livros por meio de uma tabela Hash e imprimir os autores mais frequentes.
+The script will download the dataset files to the `data/` directory:
+- `authors.csv` - Author information
+- `dataset_simp_sem_descricao.csv` - Book records
 
-- [x] Tabela Hash de Registros;
-- [x] Tabela Hash de Autores.
+### 2. Project Structure
 
+```
+.
+├── data/                    # Dataset files (downloaded from Kaggle)
+├── scripts/                 # Python scripts for data management
+│   ├── download_dataset.py
+│   └── requirements.txt
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       ├── com/bookdepository/
+│   │       │   ├── model/           # Data models (Record, Author)
+│   │       │   ├── algorithms/      # Sorting algorithms
+│   │       │   ├── structures/      # Data structures (Hash tables, Trees)
+│   │       │   ├── io/              # File I/O utilities
+│   │       │   └── part1/           # Part I implementation
+│   │       │   └── part2/           # Part II implementation
+│   │       │   └── part3/           # Part III implementation
+│   │       └── resources/           # Configuration and input files
+└── README.md
+```
 
-### Parte III
-#### Busca em Estruturas Balanceadas e Auto-Ajustáveis :bookmark:
+### 3. Building the Project
 
-Você deverá avaliar o desempenho de estruturas balanceadas ao inserir um livro usando como chave o id do livro. Você também deverá analisar o desempenho dessas estruturas ao realizar a busca pelo livro. As estruturas que devem ser avaliadas são:
+This project uses standard Java build tools. Each part can be compiled and run independently.
 
-- [x] Árvore Vermelho-Preto;
-- [x] Árvore B (d=2);
-- [x] Árvore B (d=20).
+## Part I: Sorting Algorithm Analysis
 
-Para cada valor de N lido do arquivo de entrada:
+### Description
 
-* Gera cada um dos conjuntos de elementos, constrói a árvore, contabiliza estatísticas de desempenho para inserção na árvore analisada;
-* Armazena estatísticas de desempenho em arquivo de saída (saidaInsercao.txt);
-* Realiza a busca na árvore gerada pelas entradas da inserção, contabiliza estatísticas de desempenho para busca na árvore analisada;
-* Armazena estatísticas de desempenho em arquivo de saída (saidaBusca.txt).
+This part analyzes the performance of sorting algorithms on book records. It implements QuickSort and HeapSort algorithms and measures:
+- Number of key comparisons
+- Number of record copies/swaps
+- Total sorting time (machine time)
 
-Ao final, basta processar os arquivos de saída referentes a cada uma das sementes, calculando as médias de cada estatística, para cada valor de N e para cada estrutura de
-dados considerados.
+### Algorithms Implemented
+
+- **QuickSort**: Uses median-of-three pivot selection
+- **HeapSort**: Builds a max-heap and sorts by repeatedly extracting the maximum
+
+### Input Format
+
+Create an `entrada.txt` file in the project root with the following format:
+```
+N
+value1
+value2
+...
+valueN
+```
+
+Where `N` is the number of test cases, and each value represents the number of records to sort.
+
+**Example:**
+```
+5
+1000
+5000
+10000
+50000
+100000
+```
+
+### Running Part I
+
+```bash
+cd src/main/java/com/bookdepository/part1
+javac -d ../../../../../../build *.java
+java com.bookdepository.part1.Part1
+```
+
+The output will be written to `saida.txt` in the project root.
+
+## Part II: Most Frequent Authors
+
+### Description
+
+Implements a program that reads N random and distinct books and counts how many times the same author appears within those N books using hash tables. The program prints the most frequent authors.
+
+### Data Structures Used
+
+- **Hash Table for Records**: Stores book records using open addressing with double hashing
+- **Hash Table for Authors**: Stores author information and their frequencies
+
+### Running Part II
+
+```bash
+cd src/main/java/com/bookdepository/part2
+javac -d ../../../../../../build *.java
+java com.bookdepository.part2.Part2
+```
+
+The program will prompt for the number `N` of top authors to display. Output will be written to `saidaPart2.txt`.
+
+## Part III: Balanced and Self-Adjusting Structures
+
+### Description
+
+Evaluates the performance of balanced tree structures when inserting books using the book ID as the key. Also analyzes the performance of these structures when searching for books.
+
+### Structures Analyzed
+
+- **Red-Black Tree**: Self-balancing binary search tree
+- **B+ Tree (d=2)**: B+ tree with minimum degree 2
+- **B+ Tree (d=20)**: B+ tree with minimum degree 20
+
+### Performance Metrics
+
+For each structure and each value of N from the input file:
+- Insertion statistics (comparisons, swaps, time)
+- Search statistics (comparisons, swaps, time)
+
+Output files:
+- `saidaInsercao.txt`: Insertion performance statistics
+- `saidaBusca.txt`: Search performance statistics
+
+### Running Part III
+
+```bash
+cd src/main/java/com/bookdepository/part3
+javac -d ../../../../../../build *.java
+java com.bookdepository.part3.Part3
+```
+
+## Project Details
+
+### Dataset Schema
+
+Each book record contains:
+- `authors` [list]: List of author IDs
+- `bestsellers_rank` [int]: Bestseller ranking
+- `categories` [list]: Book categories
+- `edition` [str]: Edition information
+- `id` [int]: Unique book identifier
+- `isbn10` [str]: ISBN-10
+- `isbn13` [str]: ISBN-13
+- `rating_avg` [float]: Average rating (0-5)
+- `rating_count` [int]: Number of ratings
+- `title` [str]: Book title
+
+### Architecture
+
+The project follows a modular architecture with clear separation of concerns:
+
+- **Model Layer**: Data models (`Record`, `Author`)
+- **Algorithm Layer**: Sorting and search algorithms
+- **Structure Layer**: Data structures (hash tables, trees)
+- **IO Layer**: File reading and writing utilities
+- **Application Layer**: Main programs for each part
+
+## Contributing
+
+This project was created as part of a Data Structures course (DCC012) at the Computer Science Department of UFJF.
+
+## License
+
+This project is for educational purposes.
+
+## Authors
+
+- Débora Duarte
+- Fabrício Guidine
+- Walkíria Garcia
+
+## Acknowledgments
+
+- Dataset provided by [Book Depository on Kaggle](https://www.kaggle.com/sp1thas/book-depository-dataset)
+- Department of Computer Science, UFJF
